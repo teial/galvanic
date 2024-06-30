@@ -41,3 +41,15 @@ func TestMap(t *testing.T) {
 		})
 	}
 }
+
+func TestMap_Indexes(t *testing.T) {
+	t.Parallel()
+	indexes := make([]int, 0)
+	sequence := Slice[string]{"a", "ab", "abc"}.All()
+	mapped := Map(sequence, func(e string) int { return len(e) })
+	for i, e := range mapped.Fn2 {
+		_ = e
+		indexes = append(indexes, i)
+	}
+	assert.Equal(t, []int{0, 1, 2}, indexes, "Expected %v, got %v", []int{0, 1, 2}, indexes)
+}

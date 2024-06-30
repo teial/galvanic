@@ -11,5 +11,12 @@ func (s Slice[E]) All() Sequence[E] {
 				}
 			}
 		},
+		func(yield func(int, E) bool) {
+			for i, e := range s {
+				if !yield(i, e) {
+					return
+				}
+			}
+		},
 	}
 }

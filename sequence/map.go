@@ -1,17 +1,20 @@
 package sequence
 
-type MapSeq[E any] struct {
-	Sequence[E]
-}
-
-func Map[S, T any](seq Iterable[S], f func(S) T) MapSeq[T] {
-	return MapSeq[T]{
-		Sequence[T]{func(yield func(T) bool) {
+func Map[S, T any](seq Iterable[S], f func(S) T) Sequence[T] {
+	return Sequence[T]{
+		func(yield func(T) bool) {
 			for e := range seq.All().Fn {
 				if !yield(f(e)) {
 					return
 				}
 			}
-		}},
+		},
+		func(yield func(int, T) bool) {
+			for i, e := range seq.All().Fn2 {
+				if !yield(i, f(e)) {
+					return
+				}
+			}
+		},
 	}
 }

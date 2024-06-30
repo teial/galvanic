@@ -9,5 +9,16 @@ func (seq Sequence[E]) Filter(p func(E) bool) Sequence[E] {
 				}
 			}
 		},
+		func(yield func(int, E) bool) {
+			i := 0
+			for e := range seq.Fn {
+				if p(e) {
+					if !yield(i, e) {
+						return
+					}
+					i++
+				}
+			}
+		},
 	}
 }

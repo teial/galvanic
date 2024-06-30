@@ -36,3 +36,14 @@ func TestSlice(t *testing.T) {
 		})
 	}
 }
+
+func TestSlice_Indexes(t *testing.T) {
+	t.Parallel()
+	indexes := make([]int, 0)
+	slice := Slice[int]{1, 2, 3}
+	for i, e := range slice.All().Fn2 {
+		_ = e
+		indexes = append(indexes, i)
+	}
+	assert.Equal(t, []int{0, 1, 2}, indexes, "Expected %v, got %v", []int{0, 1, 2}, indexes)
+}

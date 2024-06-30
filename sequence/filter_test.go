@@ -58,3 +58,14 @@ func TestFilter(t *testing.T) {
 		})
 	}
 }
+
+func TestFilter_Indexes(t *testing.T) {
+	t.Parallel()
+	indexes := make([]int, 0)
+	sequence := Slice[int]{1, 2, 3, 4, 5}.All().Filter(func(e int) bool { return e%2 == 1 })
+	for i, e := range sequence.Fn2 {
+		_ = e
+		indexes = append(indexes, i)
+	}
+	assert.Equal(t, []int{0, 1, 2}, indexes, "Expected %v, got %v", []int{0, 1, 2}, indexes)
+}

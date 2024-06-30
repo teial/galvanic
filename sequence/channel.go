@@ -11,5 +11,14 @@ func (s Channel[E]) All() Sequence[E] {
 				}
 			}
 		},
+		func(yield func(int, E) bool) {
+			i := 0
+			for e := range s {
+				if !yield(i, e) {
+					return
+				}
+				i++
+			}
+		},
 	}
 }

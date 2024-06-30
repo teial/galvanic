@@ -41,3 +41,13 @@ func TestRangeTo(t *testing.T) {
 		})
 	}
 }
+
+func TestRangeTo_Indexes(t *testing.T) {
+	t.Parallel()
+	indexes := make([]int, 0)
+	for i, e := range RangeTo(0, 3).Fn2 {
+		_ = e
+		indexes = append(indexes, i)
+	}
+	assert.Equal(t, []int{0, 1, 2}, indexes, "Expected %v, got %v", []int{0, 1, 2}, indexes)
+}
