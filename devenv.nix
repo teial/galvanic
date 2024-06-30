@@ -2,7 +2,7 @@
 let
   pkgs-unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.system; };
 in {
-    env.GOEXPERIMENT = "rangefunc,aliastypeparams";
+    env.GOEXPERIMENT = "rangefunc";
     packages = [
         pkgs-unstable.goimports-reviser
         pkgs-unstable.gopls
