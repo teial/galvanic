@@ -2,12 +2,12 @@ package sequence
 
 type Slice[E any] []E
 
-type SliceIter[E any] struct {
+type SliceSeq[E any] struct {
 	Sequence[E]
 }
 
-func (s Slice[E]) All() SliceIter[E] {
-	return SliceIter[E]{
+func (s Slice[E]) All() SliceSeq[E] {
+	return SliceSeq[E]{
 		Sequence[E]{func(yield func(E) bool) {
 			for _, e := range s {
 				if !yield(e) {
