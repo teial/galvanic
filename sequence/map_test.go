@@ -10,7 +10,7 @@ func TestMap(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		name string
-		seq  Sequence[string]
+		seq  Iterable[string]
 		fn   func(string) int
 		want []int
 	}{

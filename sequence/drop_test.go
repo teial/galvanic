@@ -10,7 +10,7 @@ func TestDrop(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		name string
-		seq  Sequence[int]
+		seq  Iterable[int]
 		n    int
 		want []int
 	}{
@@ -60,7 +60,7 @@ func TestDrop(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			slice := tc.seq.Drop(tc.n).Collect()
+			slice := tc.seq.All().Drop(tc.n).Collect()
 			assert.Equal(t, tc.want, slice, "Expected %v, got %v", tc.want, slice)
 		})
 	}

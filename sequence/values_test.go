@@ -10,7 +10,7 @@ func TestValues(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		name string
-		seq  Sequence[int]
+		seq  Iterable[int]
 		want []int
 	}{
 		{
@@ -31,7 +31,7 @@ func TestValues(t *testing.T) {
 	}
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			slice := tc.seq.Collect()
+			slice := tc.seq.All().Collect()
 			assert.Equal(t, tc.want, slice, "Expected %v, got %v", tc.want, slice)
 		})
 	}

@@ -1,17 +1,19 @@
 package sequence
 
-func Values[E any](values ...E) Sequence[E] {
-	return Sequence[E]{
+func Values[E any](values ...E) ReversibleSequence[E] {
+	end := len(values) - 1
+	return ReversibleSequence[E]{
+		makeSequence(values),
 		func(yield func(E) bool) {
-			for _, e := range values {
-				if !yield(e) {
+			for i := 0; i <= end; i++ {
+				if !yield(values[end-i]) {
 					return
 				}
 			}
 		},
 		func(yield func(int, E) bool) {
-			for i, e := range values {
-				if !yield(i, e) {
+			for i := 0; i <= end; i++ {
+				if !yield(i, values[end-i]) {
 					return
 				}
 			}

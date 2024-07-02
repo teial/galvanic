@@ -10,8 +10,8 @@ func TestZipAll(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		name string
-		seq1 Sequence[int]
-		seq2 Sequence[int]
+		seq1 Iterable[int]
+		seq2 Iterable[int]
 		want []Pair[int, int]
 	}{
 		{
