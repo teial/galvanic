@@ -10,7 +10,7 @@ func TestDrop(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		name  string
-		slice Slice[int]
+		slice []int
 		n     int
 		want  []int
 	}{
@@ -60,7 +60,7 @@ func TestDrop(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			slice := tc.slice.All().Drop(tc.n).Collect()
+			slice := FromSlice(tc.slice).Drop(tc.n).Collect()
 			assert.Equal(t, tc.want, slice, "Expected %v, got %v", tc.want, slice)
 		})
 	}
@@ -69,7 +69,7 @@ func TestDrop(t *testing.T) {
 func TestDrop_Indexes(t *testing.T) {
 	t.Parallel()
 	indexes := make([]int, 0)
-	sequence := Slice[int]{1, 2, 3, 4, 5}.All().Drop(2)
+	sequence := FromSlice([]int{1, 2, 3, 4, 5}).Drop(2)
 	for i, e := range sequence.Fn2 {
 		_ = e
 		indexes = append(indexes, i)

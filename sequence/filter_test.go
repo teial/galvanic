@@ -10,7 +10,7 @@ func TestFilter(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		name  string
-		slice Slice[int]
+		slice []int
 		fn    func(int) bool
 		want  []int
 	}{
@@ -53,7 +53,7 @@ func TestFilter(t *testing.T) {
 	}
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			slice := tc.slice.All().Filter(tc.fn).Collect()
+			slice := FromSlice(tc.slice).Filter(tc.fn).Collect()
 			assert.Equal(t, tc.want, slice, "Expected %v, got %v", tc.want, slice)
 		})
 	}
@@ -62,7 +62,7 @@ func TestFilter(t *testing.T) {
 func TestFilter_Indexes(t *testing.T) {
 	t.Parallel()
 	indexes := make([]int, 0)
-	sequence := Slice[int]{1, 2, 3, 4, 5}.All().Filter(func(e int) bool { return e%2 == 1 })
+	sequence := FromSlice([]int{1, 2, 3, 4, 5}).Filter(func(e int) bool { return e%2 == 1 })
 	for i, e := range sequence.Fn2 {
 		_ = e
 		indexes = append(indexes, i)

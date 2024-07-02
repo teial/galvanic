@@ -10,7 +10,7 @@ func TestTakeWhile(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		name  string
-		slice Slice[int]
+		slice []int
 		fn    func(int) bool
 		want  []int
 	}{
@@ -54,7 +54,7 @@ func TestTakeWhile(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			slice := tc.slice.All().TakeWhile(tc.fn).Collect()
+			slice := FromSlice(tc.slice).TakeWhile(tc.fn).Collect()
 			assert.Equal(t, tc.want, slice, "Expected %v, got %v", tc.want, slice)
 		})
 	}
@@ -63,7 +63,7 @@ func TestTakeWhile(t *testing.T) {
 func TestTakeWhile_Indexes(t *testing.T) {
 	t.Parallel()
 	indexes := make([]int, 0)
-	sequence := Slice[int]{2, 4, 1, 3, 5}.All().TakeWhile(func(e int) bool { return e%2 == 0 })
+	sequence := FromSlice([]int{2, 4, 1, 3, 5}).TakeWhile(func(e int) bool { return e%2 == 0 })
 	for i, e := range sequence.Fn2 {
 		_ = e
 		indexes = append(indexes, i)

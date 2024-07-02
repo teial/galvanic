@@ -10,8 +10,8 @@ func TestZipAll(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		name  string
-		slice Slice[int]
-		other Slice[int]
+		slice []int
+		other []int
 		want  []Pair[int, int]
 	}{
 		{
@@ -60,8 +60,10 @@ func TestZipAll(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			slice := ZipAll(tc.slice, tc.other).Collect()
-			assert.Equal(t, tc.want, slice, "Expected %v, got %v", tc.want, slice)
+			slice := FromSlice(tc.slice)
+			other := FromSlice(tc.other)
+			zipped := ZipAll(slice, other).Collect()
+			assert.Equal(t, tc.want, zipped, "Expected %v, got %v", tc.want, slice)
 		})
 	}
 }
@@ -69,8 +71,9 @@ func TestZipAll(t *testing.T) {
 func TestZipAll_Indexes(t *testing.T) {
 	t.Parallel()
 	indexes := make([]int, 0)
-	sequence := ZipAll(Slice[int]{1, 2, 3}, Slice[int]{1, 2})
-	for i, e := range sequence.Fn2 {
+	slice := FromSlice([]int{1, 2, 3})
+	other := FromSlice([]int{1, 2})
+	for i, e := range ZipAll(slice, other).Fn2 {
 		_ = e
 		indexes = append(indexes, i)
 	}

@@ -9,7 +9,7 @@ import (
 func TestTake(t *testing.T) {
 	tests := []struct {
 		name  string
-		slice Slice[int]
+		slice []int
 		n     int
 		want  []int
 	}{
@@ -59,7 +59,7 @@ func TestTake(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			slice := tc.slice.All().Take(tc.n).Collect()
+			slice := FromSlice(tc.slice).Take(tc.n).Collect()
 			assert.Equal(t, tc.want, slice, "Expected %v, got %v", tc.want, slice)
 		})
 	}
@@ -68,7 +68,7 @@ func TestTake(t *testing.T) {
 func TestTake_Indexes(t *testing.T) {
 	t.Parallel()
 	indexes := make([]int, 0)
-	sequence := Slice[int]{1, 2, 3, 4, 5}.All().Take(3)
+	sequence := FromSlice([]int{1, 2, 3, 4, 5}).Take(3)
 	for i, e := range sequence.Fn2 {
 		_ = e
 		indexes = append(indexes, i)
