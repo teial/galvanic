@@ -1,6 +1,6 @@
 package sequence
 
-func FromValues[E any](values ...E) Sequence[E] {
+func Values[E any](values ...E) Sequence[E] {
 	return Sequence[E]{
 		func(yield func(E) bool) {
 			for _, e := range values {

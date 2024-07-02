@@ -20,12 +20,12 @@ func TestValues(t *testing.T) {
 		},
 		{
 			name: "single",
-			seq:  FromValues(1),
+			seq:  Values(1),
 			want: []int{1},
 		},
 		{
 			name: "multiple",
-			seq:  FromValues(1, 2, 3),
+			seq:  Values(1, 2, 3),
 			want: []int{1, 2, 3},
 		},
 	}
@@ -40,7 +40,7 @@ func TestValues(t *testing.T) {
 func TestValues_Indexes(t *testing.T) {
 	t.Parallel()
 	indexes := make([]int, 0)
-	for i, e := range FromValues(1, 2, 3).Fn2 {
+	for i, e := range Values(1, 2, 3).Fn2 {
 		_ = e
 		indexes = append(indexes, i)
 	}

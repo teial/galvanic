@@ -21,28 +21,28 @@ func TestChannel(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		name string
-		ch   Sequence[int]
+		seq  Sequence[int]
 		want []int
 	}{
 		{
 			name: "empty",
-			ch:   makeChannel(),
+			seq:  makeChannel(),
 			want: []int{},
 		},
 		{
 			name: "single",
-			ch:   makeChannel(1),
+			seq:  makeChannel(1),
 			want: []int{1},
 		},
 		{
 			name: "multiple",
-			ch:   makeChannel(1, 2, 3),
+			seq:  makeChannel(1, 2, 3),
 			want: []int{1, 2, 3},
 		},
 	}
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			slice := tc.ch.All().Collect()
+			slice := tc.seq.Collect()
 			assert.Equal(t, tc.want, slice, "Expected %v, got %v", tc.want, slice)
 		})
 	}
@@ -55,5 +55,6 @@ func TestChannel_Indexes(t *testing.T) {
 		_ = e
 		indexes = append(indexes, i)
 	}
-	assert.Equal(t, []int{0, 1, 2}, indexes, "Expected %v, got %v", []int{0, 1, 2}, indexes)
+	want := []int{0, 1, 2}
+	assert.Equal(t, want, indexes, "Expected %v, got %v", want, indexes)
 }

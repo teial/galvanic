@@ -44,5 +44,6 @@ func TestSlice_Indexes(t *testing.T) {
 		_ = e
 		indexes = append(indexes, i)
 	}
-	assert.Equal(t, []int{0, 1, 2}, indexes, "Expected %v, got %v", []int{0, 1, 2}, indexes)
+	want := []int{0, 1, 2}
+	assert.Equal(t, want, indexes, "Expected %v, got %v", want, indexes)
 }
