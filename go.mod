@@ -1,4 +1,4 @@
-module github.com/teial/gith
+module github.com/teial/galvanic
 
 go 1.23rc1
 
