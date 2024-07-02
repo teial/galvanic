@@ -7,14 +7,14 @@ func (seq Sequence[E]) Take(n int) Sequence[E] {
 	return Sequence[E]{
 		func(yield func(E) bool) {
 			for i, e := range seq.Fn2 {
-				if i < n && !yield(e) {
+				if i >= n || !yield(e) {
 					return
 				}
 			}
 		},
 		func(yield func(int, E) bool) {
 			for i, e := range seq.Fn2 {
-				if i < n && !yield(i, e) {
+				if i >= n || !yield(i, e) {
 					return
 				}
 			}
