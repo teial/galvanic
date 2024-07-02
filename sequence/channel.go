@@ -1,11 +1,9 @@
 package sequence
 
-type Channel[E any] <-chan E
-
-func (s Channel[E]) All() Sequence[E] {
+func FromChannel[E any](ch <-chan E) Sequence[E] {
 	return Sequence[E]{
 		func(yield func(E) bool) {
-			for e := range s {
+			for e := range ch {
 				if !yield(e) {
 					return
 				}
@@ -13,7 +11,7 @@ func (s Channel[E]) All() Sequence[E] {
 		},
 		func(yield func(int, E) bool) {
 			i := 0
-			for e := range s {
+			for e := range ch {
 				if !yield(i, e) {
 					return
 				}

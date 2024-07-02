@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func makeChannel(nums ...int) Channel[int] {
+func makeChannel(nums ...int) Sequence[int] {
 	ch := make(chan int)
 	go func() {
 		for _, num := range nums {
@@ -14,14 +14,14 @@ func makeChannel(nums ...int) Channel[int] {
 		}
 		close(ch)
 	}()
-	return Channel[int](ch)
+	return FromChannel(ch)
 }
 
 func TestChannel(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		name string
-		ch   Channel[int]
+		ch   Sequence[int]
 		want []int
 	}{
 		{
@@ -51,7 +51,7 @@ func TestChannel(t *testing.T) {
 func TestChannel_Indexes(t *testing.T) {
 	t.Parallel()
 	indexes := make([]int, 0)
-	for i, e := range makeChannel(1, 2, 3).All().Fn2 {
+	for i, e := range makeChannel(1, 2, 3).Fn2 {
 		_ = e
 		indexes = append(indexes, i)
 	}
