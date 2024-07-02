@@ -1,6 +1,6 @@
 package sequence
 
-func FromChannel[E any](ch <-chan E) Sequence[E] {
+func Channel[E any](ch <-chan E) Sequence[E] {
 	return Sequence[E]{
 		func(yield func(E) bool) {
 			for e := range ch {

@@ -14,7 +14,7 @@ func makeChannel(nums ...int) Sequence[int] {
 		}
 		close(ch)
 	}()
-	return FromChannel(ch)
+	return Channel(ch)
 }
 
 func TestChannel(t *testing.T) {
