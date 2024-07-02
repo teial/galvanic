@@ -31,7 +31,7 @@ func TestSlice(t *testing.T) {
 	}
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			slice := FromSlice(tc.slice).Collect()
+			slice := Slice(tc.slice).Collect()
 			assert.Equal(t, tc.want, slice, "Expected %v, got %v", tc.want, slice)
 		})
 	}
@@ -40,7 +40,7 @@ func TestSlice(t *testing.T) {
 func TestSlice_Indexes(t *testing.T) {
 	t.Parallel()
 	indexes := make([]int, 0)
-	for i, e := range FromSlice([]int{1, 2, 3}).Fn2 {
+	for i, e := range Slice([]int{1, 2, 3}).Fn2 {
 		_ = e
 		indexes = append(indexes, i)
 	}
