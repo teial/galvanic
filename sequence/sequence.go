@@ -24,6 +24,7 @@ type ReversibleSequence[E any] struct {
 }
 
 type ReverseIterable[E any] interface {
+	Iterable[E]
 	Reverse() ReversibleSequence[E]
 }
 
